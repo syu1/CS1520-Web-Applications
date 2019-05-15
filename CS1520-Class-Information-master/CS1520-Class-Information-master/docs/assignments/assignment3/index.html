@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Talk Python to Me</title>
+    <link rel="stylesheet" type="text/css" href="../../css/vendor/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Talk Python to Me</h1>
+            <p class="lead">Assignment Three</p>
+            <p class="lead">Due: Friday, March 1 at 11:59.999999 pm</p>
+            <p class="lead">100 Points</p>
+            <hr class="my-4">
+            <p>Work with Python classes and common functions to build a simple script.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" href="../assignment1/index.html">Assignment One</a>
+                    <a class="list-group-item list-group-item-action" href="../assignment2/index.html">Assignment Two</a>
+                    <a class="list-group-item list-group-item-action active" href="../assignment3/index.html">Assignment Three</a>
+                    <a class="list-group-item list-group-item-action" href="../assignment4/index.html">Assignment Four</a>
+                    <a class="list-group-item list-group-item-action" href="../assignment5/index.html">Assignment Five</a>
+                    <del><a class="list-group-item list-group-item-action" href="../assignment6/index.html">Assignment Six</a></del>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <h2 id="Talk-Python-to-Me">Talk Python to Me</h2>
+
+                <p>Use the built-in features of Python to keep track of list of your favorite movies. Define functions to output data in specific formats, and filter the data to return specific items that match the criteria. You are expected to use classes,
+                    inheritance, decorators, list comprehensions, string manipulation functions, etc.</p>
+
+                <p>Your script will run non-interactively.</p>
+
+                <h2 id="Specifications">Specifications</h2>
+
+                <p>These are the base requirements for making the page work. You can enhance. You cannot use any Python imports for this project.</p>
+
+                <h3 id="Classes-and-Inheritance">Classes and Inheritance</h3>
+
+                <ul>
+                    <li><code>Media</code> Class
+
+                        <ul>
+                            <li>Has a title property of type string</li>
+                            <li>Constructor takes <code>title</code> as a parameter</li>
+                            <li>Define <code>slug</code> method that returns the title in lower case title
+
+                                <ul>
+                                    <li>Ensure that the title has been stripped of special characters
+
+                                        <ul>
+                                            <li><code>!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~</code></li>
+                                            <li>Consider using an iterator (<code>for ... in ...:</code>)</li>
+                                        </ul>
+                                    </li>
+                                    <li>Replace spaces with <code>-</code></li>
+                                    <li>For example:
+
+                                        <ul>
+                                            <li><code>Don't Tell Mom the Babysitter's Dead</code> would be <code>dont-tell-mom-the-babysitters-dead</code></li>
+                                            <li><code>G.I. Joe</code> would be <code>gi-joe</code></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><code>Movie</code> Class
+
+                        <ul>
+                            <li>Subclasses <code>Media</code> class</li>
+                            <li>Use <code>super</code> method to set <code>title</code> in constructor.</li>
+                            <li>Defines additional properties and methods:
+
+                                <ul>
+                                    <li>Year (int)</li>
+                                    <li>Director (str)</li>
+                                    <li>Runtime (float)</li>
+                                    <li>override <code>__repr__</code> method to return <code>&lt;Movie: Title&gt;</code></li>
+                                    <li>override <code>__str__</code> method to return <code>(Year) Title</code></li>
+                                    <li>define <code>abbreviation</code> method that returns first three characters of title in lower case with no spaces or special characters.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <h3 id="Functions">Functions</h3>
+
+                <ul>
+                    <li>Define a <code>slugs()</code> function that uses a list comprehension to <code>print()</code> each <code>Movie</code> slug.</li>
+                    <li>Define a <code>abbr()</code> function that uses a list comprehension to <code>print()</code> each <code>Movie</code> abbreviation.</li>
+                    <li>Define a <code>before_year()</code> function that takes an <code>int</code> parameter as a year and uses a list comprehension to <code>print()</code> each <code>Movie</code> object if the movie was released before a specified year.</li>
+                    <li>Define <code>main()</code> function and
+
+                        <ul>
+                            <li>print <code>Thanks for checking the Local Movie Database!</code></li>
+                            <li>call <code>slugs()</code></li>
+                            <li>call <code>abbr()</code></li>
+                            <li>call <code>before_year()</code></li>
+                            <li>print <code>Thank you</code> at the end</li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <h3 id="Decorator">Decorator</h3>
+
+                <ul>
+                    <li>Define a decorator to use on <code>slugs()</code>, <code>abbr()</code>, and <code>before_year()</code>:
+
+                        <ul>
+                            <li>Decorator should take an argument of <code>msg</code></li>
+                            <li>Prints <code>"=====\n%s\n=====" % msg</code></li>
+                            <li>Add decorator to functions named above, and pass in an appropriate heading message for each function.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <h3 id="Module">Module</h3>
+
+                <ul>
+                    <li>Define <code>if __name__ == '__main__':</code> block at end of file
+
+                        <ul>
+                            <li>Add at least 5 <code>Movie</code> objects to <code>movies</code> list.</li>
+                            <li>Execute <code>main()</code> function.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <h2 id="Submission-Guidelines">Submission Guidelines</h2>
+
+                <ul>
+                    <li><strong>DO NOT SUBMIT</strong> any IDE package files.</li>
+                    <li>You must name the main page for your game <code>movies.py</code>, and place it in the root directory of your repository.</li>
+                    <li>Be sure to remember to push the latest copy of your code back to your GitHub repository before the the assignment is due. At the deadline, the repositories will automatically be copied for grading. Whatever is present in your GitHub
+                        repository at that time will be considered your submission for this assignment.</li>
+                    <li>Files included in the starter repo:
+
+                        <ul>
+                            <li><code>README.md</code></li>
+                            <li><code>movies.py</code></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <h2 id="Grading-Criteria">Grading Criteria</h2>
+
+                <p>We will download a zip archive of the repo and run the <code>movies.py</code> file in a terminal/console using Python version 3.7 (<code>python movies.py</code>).</p>
+
+                <h3 id="Breakdown">Breakdown</h3>
+
+                <ul>
+                    <li>Class inheritance and use of <code>super</code>: 10%</li>
+                    <li>Class <code>slug</code> method works appropriately: 15%</li>
+                    <li>Class <code>abbreviation</code> method works appropriately: 10%</li>
+                    <li>Class dunder <code>str</code> and <code>repr</code> functions defined and return correctly: 10%</li>
+                    <li>Use of list comprehensions where specified and correct output: 15%</li>
+                    <li>Use of decorator for printing headers: 20%</li>
+                    <li>Main function outputs in correct order: 10%</li>
+                    <li>Utilization of Python topics covered in class: 10%
+
+                        <ul>
+                            <li>i.e. Classes, functions, decorators, list comprehensions, string manipulation, etc.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <p><em>Late assignments will receive zero credit.</em></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

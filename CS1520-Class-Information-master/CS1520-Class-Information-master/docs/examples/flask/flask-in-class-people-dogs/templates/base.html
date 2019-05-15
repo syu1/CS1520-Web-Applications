@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flask Templates</title>
+</head>
+<body>
+
+{% with messages = get_flashed_messages() %} 
+    {% if messages %}
+        {% for m in messages %}
+            {{ m }}
+        {% endfor %}
+    {% endif %} 
+{% endwith %}
+
+{% block content %}
+
+<h1>People and Dogs</h1>
+
+<a href="{{ url_for('add_dog') }}">Add a Dog</a>
+
+{% if dogs %}
+    <ul>
+    {% for dog in dogs%}
+    <li><a href="{{ url_for('profile', id=dog.id, name=dog.name) }}">{{dog.name}}</a>
+        {% if dog.owners.filter_by(name="Todd") %}
+        <ul>
+            {% for person in dog.owners.filter_by(name="Todd") %}
+                <li>{{ person.name }} -- {{person.movie}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}
+
+</body>
+</html>

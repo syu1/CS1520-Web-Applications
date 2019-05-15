@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h3>Stylist Name: {{username}}</h3>
+    {% for appointment in appointments %}
+    <p>Appointments:
+    Patron Name: {{appointment.patron_account}}<br /> 
+    Date of Appointment: {{appointment.date}}<br /> 
+    Time of Appointment: {{appointment.hour}}<br /> 
+    </p>
+    {% endfor %}
+{% endblock content %}

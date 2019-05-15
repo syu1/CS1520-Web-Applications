@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for stylist in stylists %}
+            <h3>Stylist Name: {{stylist.username}}</h3>
+            <p>Appointments:  </p>
+        
+        
+    {% endfor %}
+{% endblock content %}

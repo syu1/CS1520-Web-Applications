@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Creating new appointment</legend>
+                <div class="form-group">
+                    <h3>Enter your username</h3>
+
+
+                    {% if form.patron_username.errors %}
+                        {{ form.patron_username(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.patron_username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.patron_username(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+               
+                <div class="form-group">
+                     <h3>Enter your stylists username</h3>
+                    
+
+
+                    {% if form.stylist_username.errors %}
+                        {{ form.stylist_username(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.stylist_username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.stylist_username(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                 <div class="form-group">
+                     <h3>Enter the date %Y-%m-%d</h3>
+                    {% if form.date.errors %}
+                        {{ form.date(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.date.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{form.date(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                 <div class="form-group">
+                     <h3>Enter the hour 8Am to 5PM</h3>
+                    {% if form.date.errors %}
+                        {{ form.date(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.date.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{form.hour(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                
+            </fieldset>
+            <div class="form-control-lgoup">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

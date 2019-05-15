@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+ {% for stylist in stylists %}
+            
+        	<a href="{{url_for('style_profile', my_username=stylist.username) }}"><h3>Stylist Name: {{stylist.username}}</h3></a>
+        	<div class="border-top pt-3">
+        <small class="text-muted">
+            Create an appointment! <a class="ml-2" href="{{ url_for('new_appointment') }}">Appointment Form</a>
+        </small>
+    </div>
+    {% endfor %}
+ 
+{% endblock content %}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>The Name of the Game is Connect Four!</title>
+    <link rel="stylesheet" type="text/css" href="../../css/vendor/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">The Name of the Game is Connect Four</h1>
+            <p class="lead">Assignment Two</p>
+            <p class="lead">Due: Friday, February 15 at 11:59.999999 pm</p>
+            <p class="lead">100 Points</p>
+            <hr class="my-4">
+            <p>Gain experience building interactive, client-side web applications using JavaScript and the DOM.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" href="../assignment1/index.html">Assignment One</a>
+                    <a class="list-group-item list-group-item-action active" href="../assignment2/index.html">Assignment Two</a>
+                    <a class="list-group-item list-group-item-action" href="../assignment3/index.html">Assignment Three</a>
+                    <a class="list-group-item list-group-item-action" href="../assignment4/index.html">Assignment Four</a>
+                    <a class="list-group-item list-group-item-action" href="../assignment5/index.html">Assignment Five</a>
+                    <del><a class="list-group-item list-group-item-action" href="../assignment6/index.html">Assignment Six</a></del>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <h2>Connect Four!</h2>
+
+                <p class="lead">You will be implementing the game, <a href="https://www.youtube.com/watch?v=KN3nohBw_CE">Connect Four</a>, to be played in the web browser. This assignment is to demonstrate an understanding of how to utilize JavaScript to collect, persist,
+                    and manipulate data, and to respond to user interactions to dynamically change the DOM.</p>
+
+                <ul>
+                    <li>For this version, you will assume that only one user is viewing the page that presents your game at a time (e.g., the two players are using a laptop that they pass back and forth between turns).</li>
+                    <li><a href="https://en.wikipedia.org/wiki/Connect_Four">Wikipedia&rsquo;s Connect Four</a> entry lays out the rules.</li>
+                    <li>Your game will be built on a 7x6 grids, with rows labeled 1-6 and columns labeled A-G.</li>
+                    <li>Each player has 21 tokens.
+
+                        <ul>
+                            <li>Player one&rsquo;s tokens are red.</li>
+                            <li>Player two&rsquo;s tokens are black.</li>
+                        </ul>
+                    </li>
+                    <li>The tokens cannot overlap.</li>
+                    <li>The game will have to be aware of how many tokens of the same color are touching, and how many remain to reach four.</li>
+                    <li>The player selects the column to drop the token. You do not need to animate the drop.</li>
+                </ul>
+
+                <h2>Specifications</h2>
+                <p class="lead">These are the base requirements for making the page work. You can enhance. You cannot use external libraries like jQuery for this project.</p>
+
+                <ul>
+                    <li>When the page is loaded, your game should begin by asking the first player for her name (for example, let's assume that the first player is Alice), and a string representing their birthday. The board should not be displayed.
+
+                        <ul>
+                            <li>Your game should be flexible in accepting the multiple date formats.
+
+                                <ul>
+                                    <li><code>MM/DD/YYYY</code> - <em>i.e. 01/01/2019</em></li>
+                                    <li><code>M/D/YYYY</code> - <em>i.e. 1/1/2019</em></li>
+                                    <li><code>MM-DD-YYYY</code> - <em>i.e. 01-01-2019</em></li>
+                                    <li><code>M-D-YYYY</code> - <em>i.e. 1-1-2019</em></li>
+                                    <li><code>MMM. DD, YYYY</code> - <em>i.e. Jan. 01, 2019</em></li>
+                                    <li><code>MMM. D, YYYY</code> - <em>i.e. Jan. 1, 2019</em></li>
+                                    <li><code>MMMMMM DD, YYYY</code> - <em>i.e. January 01, 2019</em></li>
+                                    <li><code>MMMMMM D, YYYY</code> - <em>i.e. January 1, 2019</em></li>
+                                </ul>
+                            </li>
+                            <li>Use a regex function to validate the strings, <em>and</em> split the string into three variables representing Day, Month, and Year.</li>
+                            <li>Set the player&rsquo;s birthday attribute as a JavaScript Date object constructed from the three variables.</li>
+                        </ul>
+                    </li>
+                    <li>After gathering the first player&rsquo;s name and birthday, your game should prompt the second player for their name and birthday (for example, lets assume the second player is Bob).</li>
+                    <li>The player who takes the first turn is the oldest.</li>
+                    <li>A timer should be displayed at the top of the page tracking the duration of the game. The timer does not start until the first player confirms the start of their first turn.</li>
+                    <li>With this starting information in hand, your game should begin the first player&rsquo;s turn
+
+                        <ul>
+                            <li>At the start of a turn, your game should use a dialog (you may use <code>alert()</code>, but you do not have to) indicating whose turn it is by name (e.g., &ldquo;Click OK to begin Alice&rsquo;s turn&rdquo;).</li>
+                            <li>After the prompt is dismissed, your game should render one 7x6 grid created dynamically with JavaScript.
+                                <ul>
+                                    <li>The grid should have a yellow background and blue border.</li>
+                                    <li>Empty cells should have a white circle using the image from the starter repo located at <code>/images/white-circle.png</code>.</li>
+                                </ul>
+                            </li>
+                            <li>The count of remaining tokens for player one should be displayed on the left of the board.</li>
+                            <li>The count of remaining tokens for player two should be displayed on the right of the board.</li>
+                            <li>The player is then free to click a column to place their token.
+                                <ul>
+                                    <li>The token should occupy the lowest available cell in the column.</li>
+                                    <li>When a player places a token, the cell the token occupies should contain a circle referencing the player&rsquo;s token color: <code>/images/red-circle.png</code> and <code>/images/black-circle.png</code>.</li>
+                                    <li>If the player clicks on a column where no tokens can be placed, a dialog should tell them the column is full.</li>
+                                    <li>Once a token is placed, the remaining tokens should be decremented by one.</li>
+                                    <li>After the player has placed their token, the player&rsquo;s turn is ended and the other player&rsquo;s turn should begin with a dialog (e.g., &ldquo;Click to begin Bob&rsquo;s
+                                        turn&rdquo;).
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>The game continues until one player achieves a Connect Four. The player who achieves a Connect Four is alerted with a message that they won (i.e. &ldquo;Congratulations! Alice won in <code>insert game duration here</code>!&rdquo;).
+                        <ul>
+                            <li>Your game should keep track of the names and game durations of the 10 fastest games in local storage.
+                                <ul>
+                                    <li>Consider using an <code>Array</code> of JavaScript <code>Objects</code> (i.e. <code>[ { key: value } ]</code>)</li>
+                                </ul>
+                            </li>
+                            <li>Only update local storage if there are less than or equal to 10 entries, or the duration of the game beats any time currently tracked in local storage.</li>
+                            <li>When the game is over, remove the board and display the top 10 list.</li>
+                            <li>Empty values should render <code>--</code> in the listing.</li>
+                            <li>Include a button to start a new game.</li>
+                            <li>Starting a new game removes the score listing.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h2>Submission Guidelines</h2>
+                <ul>
+                    <li><strong>DO NOT SUBMIT</strong> any IDE package files.</li>
+                    <li>You must name the main page for your game <code>connect-four.html</code>, and place it in the root directory of your repository.</li>
+                    <li>Be sure to remember to push the latest copy of your code back to your GitHub repository before the the assignment is due. At the deadline, the repositories will automatically be copied for grading. Whatever is present in your GitHub
+                        repository at that time will be considered your submission for this assignment.</li>
+                    <li>This should all be done with a single <code>connect-four.html</code> file. You may use multiple JavaScript files, but the entire application should work on a single <code>html</code> file.</li>
+                    <li>Files included in the starter repo:
+
+                        <ul>
+                            <li><code>README.md</code></li>
+                            <li><code>/css</code> directory</li>
+                            <li><code>/js</code> directory</li>
+                            <li><code>/images/white-circle.png</code></li>
+                            <li><code>/images/red-circle.png</code></li>
+                            <li><code>/images/black-circle.png</code></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <h2>Grading Criteria</h2>
+                <p>We will download a zip archive of the repo and run the HTML/JS file created locally in the Chrome browser.</p>
+
+                <ul>
+                    <li>This project will require extensive manipulation of the DOM to enable the game to run as described.</li>
+                    <li>Your game does not need to persist across page refreshes. It is acceptable for a page refresh to restart the game.</li>
+                    <li>While you are not going to be heavily graded on the style and design of your game, * it should be presented in a clear and readable manner.</li>
+                </ul>
+
+                <h3>Breakdown</h3>
+                <ul>
+                    <li>Turns proceed as described: 20%</li>
+                    <li>Game board is displayed properly: 20%</li>
+                    <li>Event handling is processed as described: 15%</li>
+                    <li>Birthday strings are correctly validated using regex: 5%</li>
+                    <li>Birthday strings are correctly parsed with regex and date object created according to specification: 10%</li>
+                    <li>Score saving works appropriately: 15%</li>
+                    <li>Clear and readable presentation: 5%</li>
+                    <li>Utilization of Javascript topics covered in class: 10%
+
+                        <ul>
+                            <li>i.e. Functions, Dynamic DOM manipulation, EventHandling, type checking, etc.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <p><em>Late assignments will receive zero credit.</em></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

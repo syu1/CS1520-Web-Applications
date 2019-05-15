@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div id="clock"></div>
+
+<div class="parent"></div>
+<button onclick="startTimer()">Begin Game</button>
+
+<script type="text/javascript">
+class Player
+{
+  constructor(name,birth)
+  {
+    this.playerNumber=0;
+    this.name =name;
+    this.birth = birth;
+    }
+  setPlayerNumber(number)
+  {
+    this._playerNumber = number;
+  }
+}
+
+var name1 = prompt("What is player 1's name?");
+var birthday1 = prompt("What is player 1's birthday?");
+var birthObj1 = parseBirthday(birthday1);
+var player1 = new Player(name1,birthObj1);
+var name2 = prompt("What is player 2's name?");
+var birthday2 = prompt("What is player 2's birthday?");
+var birthObj2 = parseBirthday(birthday2);
+var player2 = new Player(name2,birthObj2);
+var playerOrder = determinePlayerOrder(player1,player2);
+var checkWinner= 0;
+if(playerOrder ===1)
+{
+  alert(name1 +"is older, red goes first!\nUse the left click for red and right for black.")
+}
+else {
+  alert(name2 +"is older, black goes first!\nUse the left click for red and right for black.")
+}
+var board = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0]
+];
+    var cellRowLocation;
+    var celColLocation;
+    var letters = ['-','A','B','C','D','E','F','G','H','I','J'];
+    var parent = document.querySelector(".parent");
+    if (parent.hasChildNodes()){
+        var children = parent.childNodes;
+        for (var i = 0; i < children.length; i++) {
+            parent.removeChild(children[i]);
+        }
+    }
+    var table  = document.createElement('table');
+    table.setAttribute('id', 'table')
+    parent.appendChild(table);
+    for (var i = 1; i < 7 ; i++) {
+        var row = document.createElement('tr');
+        for (var j = 1; j < 8; j++ ) {
+
+            var cell = document.createElement('td');
+            cell.innerHTML = "<img src='white-circle.png' width='50' height='50'/>";
+            if (j)
+            {
+                cell.setAttribute('style', 'cursor:pointer; background-color:#c2c2c2;');
+            } else
+            {
+                cell.setAttribute('style', 'cursor:pointer;');
+            }
+            cell.addEventListener('click', function(e)
+            {
+              var myTable = document.getElementById('table');
+              myTable.rows[this.parentNode.rowIndex].cells[this.cellIndex].innerHTML = "<img src='red-circle.png' width='50' height='50'/>";
+
+              board[this.parentNode.rowIndex][this.cellIndex] = 1;
+              checkWinner = checkWin();
+              if(checkWinner === 1)
+              {
+                alert(name1+ " Wins!");
+              }
+              else if(checkWinner ===2)
+              {
+                alert(name2 +" Wins!");
+              }
+              else{
+                  alert("It is now "+name1+"'s turn.");
+              }
+
+
+            });
+            cell.addEventListener('contextmenu', function(ev)
+            {
+              ev.preventDefault();
+              var myTable = document.getElementById('table');
+              myTable.rows[this.parentNode.rowIndex].cells[this.cellIndex].innerHTML = "<img src='black-circle.png' width='50' height='50'/>";
+
+              board[this.parentNode.rowIndex][this.cellIndex] = 2;
+              checkWinner = checkWin();
+              if(checkWinner === 1)
+              {
+                alert(name1+ " Wins!");
+              }
+              else if(checkWinner ===2)
+              {
+                alert(name2 +" Wins!");
+              }
+              else{
+                  alert("It is now "+name2+"'s turn.");
+              }
+
+
+              return false;
+            }, false);
+            row.appendChild(cell);
+        }
+        document.querySelector("#table").appendChild(row);
+    }
+
+function startTimer()
+{
+  var today = new Date();
+  var hours = today.getHours();
+  var min = today.getMinutes();
+  var sec = today.getSeconds();
+  min = checkTime(min);
+  sec = checkTime(sec);
+  document.getElementById('clock').innerHTML = hours + ":" + min + ":" + sec;
+  var time = setTimeout(startTime, 500);
+}
+function checkTime(i)
+{
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+
+function parseBirthday(birthdate)
+{
+  //parse out three variables from birthdate
+  // then add those three variables as class variables for object birthObject
+  var regBirthDate = new RegExp('([1-9]|0[1-9]|1[012])[- /]([1-9]|0[1-9]|[12][0-9]|3[01])[- /](19|20|)[0-9][0-9]');
+  var regBirthDateLongMonth = new RegExp('([jfmaosnd][aepuco][nbrylpgtvc]|[jfmaosnd][aepuco][nbryplgtvc][tey]|[jfmsaond][aepuco][npbrylgtvc][vrtcieyuo][hel]|[jfsmaond][aepuco][nbrpylgtvc][vrtcieyuo][avehlsbm][mt]|[jfmsaond][aepuco][nbrylpgtvc][vrctieyuo][avehlsbm][rmateb][ybr]|[jfmasond][aepuco][nbprylgtvc][vrctieyuo][aeuhlsbm][ramteb][ybre][yer]|[jfsmaond][aepuco][nbrpylgtvc][vrtcieyuo][avehlsbm][mt]|[jfmsaond][aepuco][nbrylpgtvc][vrctieyuo][avehlsbm][rmateb][ybr]|[jfmasond][aepuco][nbprylgtvc][vrctieyuo][aeuhlsbm][ramteb][ybre][yer][r]) ([1-9]|0[1-9]|[12][0-9]|3[01]), (19|20|)[0-9][0-9]','i');
+  var regBirthDateShortMonth = new RegExp('([jfmasond][aepuco][nbrpylgtvc]). ([1-9]|0[1-9]|[12][0-9]|3[01]), (19|20|)[0-9][0-9]','i');
+  var validBirth = false;
+    var isString = false;
+  var dayMonthYear = ["place","holder","the","place"];
+
+  //console.log(birthdate);
+  //console.log("wrong normal birth "+regBirthDate.test(birthdate));
+  //console.log("wrong long birth "+ regBirthDateLongMonth.test(birthdate));
+  //console.log("wrong short birth " +regBirthDateShortMonth.test(birthdate));
+
+  if(regBirthDateLongMonth.test(birthdate) === true)
+  {
+    validBirth = true;
+    dayMonthYear = regBirthDateLongMonth.exec(birthdate);
+    alert("this1");
+    isString = true;
+
+  }
+  else if(regBirthDateShortMonth.test(birthdate) === true)
+  {
+    validBirth = true;
+    alert("this2");
+    dayMonthYear = regBirthDateShortMonth.exec(birthdate);
+    isString = true;
+
+  }
+  else if(regBirthDate.test(birthdate) === true)
+  {
+    validBirth = true;
+    dayMonthYear = regBirthDate.exec(birthdate);
+    isString = false;
+  }
+  else
+  {
+    alert("Invalid birthdate detected");
+  }
+  if(validBirth === true)
+  {
+    try{
+      var day = dayMonthYear[2];
+      var month = dayMonthYear[1];
+      var year = dayMonthYear[3];
+      if (isString=== true)
+      {
+        month = getMonthFromString(month);
+        alert(month);
+      }
+      var birthObject = {
+        objDay : day,
+        objMonth:  month,
+        objYear : year,
+
+    };
+      return birthObject;
+    }
+    catch(e)
+    {
+      console.log("null pointer exception");
+    }
+
+  }
+
+  else
+  {
+      return null;
+  }
+}
+
+function determinePlayerOrder(aPlayer1,aPlayer2)
+{
+  if(aPlayer1.birth.objYear !== aPlayer2.birth.objYear)
+  {
+    if(aPlayer1.birth.objYear < aPlayer2.birth.objYear)
+    {
+      //returns 1 player 1 is one and player 2 is two
+        return 1;
+    }
+    else {
+      return 2;
+    }
+  }
+  else if(aPlayer1.birth.objMonth !== aPlayer2.birth.objMonth)
+  {
+    if(aPlayer1.birth.objMonth < aPlayer2.birth.objMonth)
+    {
+      //returns 1 player 1 is one and player 2 is two
+        return 1;
+    }
+    else {
+      return 2;
+    }
+  }
+  else if(aPlayer1.birth.objDay !== aPlayer2.birth.objDay)
+  {
+    if(aPlayer1.birth.objDay < aPlayer2.birth.objDay)
+    {
+      //returns 1 player 1 is one and player 2 is two
+        return 1;
+    }
+    else {
+      return 2;
+    }
+  }
+  else {
+    alert("same birthday first person to submit goes first");
+
+  }
+}
+
+function checkWin()
+{
+  //loop through rows
+  var redCounter = 0;
+  var blackCounter = 0;
+  for(var i =0;i<6;i++)
+  {
+
+    for(var j = 0;j<7;j++)
+    {
+      //alert(board[i][j]);
+      if(board[i][j] === 1)
+      {
+        redCounter++;
+        if(redCounter ===4)
+        {
+
+          return 1;
+        }
+      }
+      else {
+        redCounter = 0;
+        return 0;
+      }
+      if(board[i][j] === 2)
+      {
+        blackCounter++;
+        if(blackCounter ===4)
+        {
+
+          return 2;
+        }
+      }
+      else{
+        blackCounter = 0;
+        return 0;
+      }
+    }
+  }
+  //loop through column
+  for(var i =0; i<7; i++)
+  {
+
+    for(var j = 0;j<6; j++)
+    {
+        //alert(j+"hello"+i);
+      if(board[j][i] === 1)
+      {
+
+        redCounter++;
+        if(redCounter ===4)
+        {
+
+          return 1;
+        }
+      }
+      else {
+        redCounter = 0;
+        return 0;
+      }
+      if(board[j][i] === 2)
+      {
+        blackCounter++;
+        if(blackCounter ===4)
+        {
+
+          return 2;
+        }
+      }
+      else{
+        blackCounter = 0;
+        return 0;
+      }
+    }
+
+  }
+  /*
+  for(var i =0;i<7;i++)
+  {
+
+    for(var j = 0;j<6;j++)
+    {
+      if(board[i][j] === 1)
+      {
+        redCounter++;
+        if(redCounter ===4)
+        {
+          alert("Red Wins!");
+        }
+      }
+      else {
+        redCounter = 0;
+      }
+      if(board[i][j] === 2)
+      {
+        blackCounter++;
+        if(blackCounter ===4)
+        {
+          alert("Black Wins!");
+        }
+      }
+      else{
+        blackCounter = 0;
+      }
+    }
+  }
+  */
+}
+
+</script>
+</body>
+</html>
